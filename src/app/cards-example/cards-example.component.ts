@@ -14,8 +14,8 @@ import { CardService } from '../data/card.service';
 export class CardsExampleComponent implements OnInit {
 
     title = 'Flash Cards';
-    selectedCard: Card;
-    exampleCards: Card[];
+    selectedCard: any;
+    exampleCards: any[];
     
     constructor(private cardService: CardService,
                 private router: Router){}
