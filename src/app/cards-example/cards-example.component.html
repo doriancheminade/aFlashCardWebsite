@@ -1,0 +1,18 @@
+<h1>
+    {{title}}
+</h1>
+
+<ul class="cards">
+    <li *ngFor="let card of exampleCards"
+        [class.selected]="card === selectedCard"
+        (click)="onSelect(card)">
+        <span class="badge">{{card.id}}</span>
+        {{card.name}}
+    </li>
+</ul>
+<div *ngIf="selectedCard">
+    <h2>
+        {{selectedCard.name | uppercase}} selected
+    </h2>
+    <button (click)="gotoDetail()">View Details</button>
+</div>

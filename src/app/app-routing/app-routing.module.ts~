@@ -1,0 +1,20 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { CommonModule } from '@angular/common';
+
+import { CardsExampleComponent } from '../cards-example/cards-example.component';
+
+const routes: Routes = [
+    { path: '', redirectTo: '/cards-example', pathMatch: 'full' },
+    { path: 'cards-example', component: CardsExampleComponent },
+];
+
+@NgModule({
+  imports: [
+    CommonModule,
+     RouterModule.forRoot(routes)
+  ],
+    exports: [ RouterModule ],
+  declarations: []
+})
+export class AppRoutingModule { }
