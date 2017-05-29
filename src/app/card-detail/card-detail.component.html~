@@ -1,10 +1,25 @@
 <h3>Card detail</h3>
 <div *ngIf="card">
-    <!--<input [(ngModel)]="card.name" placeholder="name"/>-->
-    <label>name:</label>
-    {{card.name}}
+
+    <div class="cardOriginalWord">
+    <font size="2">( 
+    {{card[0].type}} ): </font>
+    {{card[0].word}}
     <br/>
-    <label>type:</label>
-    {{card.type}}
-    <button (clik)="goBack()">Back</button>
+    </div>
+    
+    <div class="cardTranslation" *ngFor="let t of card[0].translation">
+        <font size="2" *ngIf="(t.info | json) != ({} | json)">(
+        {{t.info}} ): </font>
+        {{t.translation}}
+        <br/>
+        <div class="cardExample" *ngIf="(t.example | json) != ({} | json)">
+        <label>en: </label>
+        {{t.example.en}}
+        <br/>
+        <label>ru: </label> 
+        {{t.example.ru}}  
+        </div>
+    </div>
 </div>
+<button (click)="goBack()">Back</button>

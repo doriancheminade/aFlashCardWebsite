@@ -13,7 +13,8 @@ import { Card } from '../data/card.component';
   styleUrls: ['./card-detail.component.css']
 })
 export class CardDetailComponent implements OnInit {
-    card: Card;
+    //card: Card;
+    card: any;
     
     constructor(
         private cardService: CardService,
@@ -23,8 +24,12 @@ export class CardDetailComponent implements OnInit {
     
     ngOnInit(): void {
         this.route.params
-            .switchMap((params: Params) => this.cardService.getCard(+params['id']))
+            .switchMap((params: Params) => this.cardService.getCard(params['id']))
+            //.subscribe(card => this.card = card);
+            //.map(x => x.json() )
+            //.map( (card) => this.card = card)
             .subscribe(card => this.card = card);
+        console.log(this.card)
     }
     
     goBack(): void {

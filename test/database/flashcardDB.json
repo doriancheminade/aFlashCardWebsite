@@ -1,0 +1,65 @@
+[
+    {"id": 1, "name": "teapot", "type":"noun",
+        "word":"teapot",
+        "translation":[{ 
+            "info":"(=recipient)",
+            "translation": "ча́йник",
+            "example":{
+                "en":"Oh, the hole in my teapot ?",
+                "ru":"О, дырка от пули в моём чайнике?"
+                }
+            }
+        ]
+    },
+    {"id": 2, "name": "mug", "type":"noun",
+        "word":"mug",
+        "translation":[{ 
+           
+            "translation": "кружка",
+            "example":{
+                "en":"Larry, I have a mug that says \"I'm Mrs Clooney\".",
+                "ru":"Ларри, а у меня есть кружка, на которой написано \"Я миссис Клуни\"."
+                }
+            }
+        ]},
+    {"id": 3, "name": "spoon", "type":"noun",
+        "word":"spoon",
+        "translation":[{ 
+            "info":"",
+            "translation": "ло́жка",
+            "example":{
+                "en":"Listen, she needs a spoon to eat.",
+                "ru":"Послушай, ей нужна ложка, чтобы поесть."
+                }
+            }
+        ]},
+    {"id": 4, "name": "sugar", "type":"noun",
+        "word":"сахар",
+        "translation":[{ 
+            "info":"",
+            "translation": "сахар",
+            "example":{
+                "en":"Yes, with milk and sugar.",
+                "ru":"Да, с молоком и сахаром."
+                }
+            }
+        ]},
+    {"id": 5, "name": "boil", "type":"verbe",
+        "word":"to boil",
+        "translation":[{ 
+            "info":"(water)",
+            "translation": " кипятить (вскипятить    perf  ) ",
+            "example":{
+                "fr":"I couldn't boil water before she arrived.",
+                "ru":"Я не мог вскипятить воду до ее прихода."
+                }
+            },{ 
+            "info":"(eggs, potatoes etc)",
+            "translation": "варить (сварить    perf  ), отваривать (отварить    perf  )",
+            "example":{
+                "fr":"Take a big pot, add some tea and boil thoroughly.",
+                "ru":"Возьмите большую кастрюлю, добавить чай и варить их тщательно."
+                }
+            }
+        ]}
+]

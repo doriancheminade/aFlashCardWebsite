@@ -27,3 +27,24 @@ button:disabled {
   color: #ccc; 
   cursor: auto;
 }
+.col-1-2 {
+  width: 50%;
+}
+.col-1-4 {
+  width: 25%;
+}
+div {
+  padding: 20px;
+}
+.cardOriginalWord {
+  background-clip: padding-box;
+  background-color: #e5e5e5;
+}
+.cardTranslation {
+  background-clip: padding-box;
+  background-color: #d8d8d8;  
+}
+.cardExample {
+  background-clip: padding-box;
+  background-color: #f2f2f2;  
+}

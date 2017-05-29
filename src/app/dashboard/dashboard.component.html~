@@ -1,6 +1,6 @@
 <h3> Dashboard </h3>
-<a *ngFor="let card of cards"  [routerLink]="['/detail', card.id]"  class="col-1-4">
-    <div>
-    {{card.name}}
+<a *ngFor="let card of cards"  [routerLink]="['/detail', card._id]"  class="col-1-4">
+    <div class="module card">
+        {{card.name}}
     </div>
 </a>

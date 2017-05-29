@@ -34,7 +34,7 @@ export class CardsExampleComponent implements OnInit {
     }
     
     gotoDetail(): void {
-        this.router.navigate(['/detail', this.selectedCard.id]);
+        this.router.navigate(['/detail', this.selectedCard._id]);
     }
 
 }
