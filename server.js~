@@ -18,7 +18,11 @@ const port = process.env.PORT || '3000';
 app.set('port', port);
 
 app.get('/', (req, res) => {
+<<<<<<< HEAD
     res.sendFile(path.join(__dirname, 'dist/index.html'));
+=======
+    res.sendFile(path.join(__dirname, 'src/index.html'));
+>>>>>>> dee23adc4df6f099d91e02a12eb55b739454ce00
 });
 
 const server = http.createServer(app);

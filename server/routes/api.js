@@ -12,7 +12,6 @@ DB.connect(FLASHCARD_URI, function(err){
     DB.drop(function(done){
         if(err){return console.dir(err);}
         DB.fixtures(flashcards, function(done){
-
         })
     })
 })

@@ -14,15 +14,18 @@
     {"id": 2, "name": "mug", "type":"noun",
         "word":"mug",
         "translation":[{ 
+<<<<<<< HEAD
            
+=======
+            "info":"",
+>>>>>>> dee23adc4df6f099d91e02a12eb55b739454ce00
             "translation": "кружка",
             "example":{
                 "en":"Larry, I have a mug that says \"I'm Mrs Clooney\".",
                 "ru":"Ларри, а у меня есть кружка, на которой написано \"Я миссис Клуни\"."
                 }
             }
-        ],
-        "img": { "data": "Buffer", "contentType": "String" }},
+        ]},
     {"id": 3, "name": "spoon", "type":"noun",
         "word":"spoon",
         "translation":[{ 

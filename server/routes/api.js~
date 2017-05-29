@@ -5,6 +5,16 @@ var DB = require('../../db')
 var db = DB.getDB()
 var flashcards = "flashcardDB"
 var FLASHCARD_URI = 'mongodb://localhost:27017/'+flashcards
+<<<<<<< HEAD
+var m= require('mongodb');
+
+DB.connect(FLASHCARD_URI, function(err){
+    if(err){return console.dir(err);}
+    DB.drop(function(done){
+        if(err){return console.dir(err);}
+        DB.fixtures(flashcards, function(done){
+
+=======
 
 
 DB.connect(FLASHCARD_URI, function(err){
@@ -13,6 +23,7 @@ DB.connect(FLASHCARD_URI, function(err){
         if(err){return console.dir(err);}
         DB.fixtures(flashcards, function(done){
 
+>>>>>>> dee23adc4df6f099d91e02a12eb55b739454ce00
         })
     })
 })
@@ -22,19 +33,22 @@ router.get('/getAllFlashCards', (req, res) => {
             console.error('Find failed', err);
         } else {
             console.log('Find successful', result);
+<<<<<<< HEAD
             res.send(result);
         }
     })
 });
 router.get('/getByIdFlashCards/:id', (req, res) => {
-var ObjectID = require('mongodb').ObjectID;
-    DB.getDB().collection(flashcards).find({"_id": ObjectId(req.params.id)}).toArray(function (err, result) {
+    DB.getDB().collection(flashcards).find({"_id": m.ObjectId(req.params.id)}).toArray(function (err, result) {
         if (err) {
             console.error('Find failed', err);
         } else {
             console.log('Find successful', req.params);
             console.log('               ', result);
             res.send(result);
+=======
+            res.send({ 'cards': result});
+>>>>>>> dee23adc4df6f099d91e02a12eb55b739454ce00
         }
     })
 });
