@@ -32,6 +32,12 @@ export class CardService {
                         .catch(this.handleError);
     }
     
+    getImage(id: string): Promise<any> {
+        return this.http.get('api/imgs/getById/'+id)
+                        .toPromise()
+                        .catch(this.handleError);
+    }
+    
     private handleError(error: any): Promise<any> {
         console.error('API ERROR: ', error);
         return Promise.reject(error.message || error);

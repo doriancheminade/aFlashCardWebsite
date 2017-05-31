@@ -1,24 +1,33 @@
 <h3>Card detail</h3>
 <div *ngIf="card">
 
-    <div class="cardOriginalWord">
-    <font size="2">( 
-    {{card[0].type}} ): </font>
-    {{card[0].word}}
-    <br/>
+    <div class="cardOriginalWord col-1-4">
+        <font size="2"> 
+            ({{card[0].type}} ):
+        </font>
+        {{card[0].word}}
+        <br/>
+    </div>
+    
+    <div class="cardExample col-1-4" *ngIf="card.image">
+        <img [src]="imageRef"/>
     </div>
     
     <div class="cardTranslation" *ngFor="let t of card[0].translation">
-        <font size="2" *ngIf="(t.info | json) != ({} | json)">(
-        {{t.info}} ): </font>
+        <font size="2" *ngIf="(t.info | json) != ({} | json)">
+            ({{t.info}} ): 
+        </font>
         {{t.translation}}
         <br/>
         <div class="cardExample" *ngIf="(t.example | json) != ({} | json)">
-        <label>en: </label>
-        {{t.example.en}}
-        <br/>
-        <label>ru: </label> 
-        {{t.example.ru}}  
+            <div class="col-1-2">
+                <label>en: </label>
+                {{t.example.en}}
+            </div>
+            <div class="col-1-2">
+                <label>ru: </label> 
+                {{t.example.ru}} 
+            </div> 
         </div>
     </div>
 </div>

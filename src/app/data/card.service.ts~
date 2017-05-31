@@ -28,7 +28,7 @@ export class CardService {
         return this.http.get('api/getByIdFlashCards/'+id)
                         .toPromise()
                         //.then(responce => responce.json().data as Card)
-                        .then(responce => responce.json())
+                        .then( (responce) => responce.json())
                         .catch(this.handleError);
     }
     

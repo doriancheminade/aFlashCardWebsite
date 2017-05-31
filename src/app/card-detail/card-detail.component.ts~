@@ -13,22 +13,23 @@ import { Card } from '../data/card.component';
   styleUrls: ['./card-detail.component.css']
 })
 export class CardDetailComponent implements OnInit {
-    //card: Card;
     card: any;
+    imageRef: string;
     
     constructor(
         private cardService: CardService,
         private route: ActivatedRoute,
-        private location: Location
+        private location: Location,
     ){}
     
     ngOnInit(): void {
         this.route.params
-            //.switchMap((params: Params) => this.cardService.getCard(params['id']))
-            //.subscribe(card => this.card = card);
-            //.map(x => x.json() )
-            //.map( (card) => this.card = card)
-            .subscribe(card => this.card = card.json().data);
+            .switchMap((params: Params) => this.cardService.getCard(params['id']))
+            //.subscribe(card => this.card = card)
+            //.subscribe( card => this.imageRef = 'api/imgs/getById/' + this.card.image)
+            .subscribe(card => {
+                       this.card = card;
+                       this.imageRef = "api/imgs/getById/" + this.card.image.toString()});
         console.log(this.card)
     }
     

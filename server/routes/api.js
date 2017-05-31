@@ -24,30 +24,35 @@ DB.connect(FLASHCARD_URI, function(err){
         if(err){return console.log(err);}
         //drop images
         gridfs.DeleteAllFiles(function(){            
-        //insert images
-        images.forEach(function(i){
-            gridfs.createFile(p + i.f, function(imageId){
-                console.log('    image -> database: OK', imageId); 
-                i.id = imageId;//set ObjectId here
-            
-                console.log('   added image ref to flashcard')
-                //add image ObjectId to flashcard
-                flashcardsData.forEach(function(f){
-                    if(f.name == i.name){
-                        f.image = i.id;
-                        //console.log('image id set', i.id)
+            //insert images
+            var n = 0;
+            images.forEach(function(i){
+                
+                gridfs.createFile(p + i.f, function(imageId){
+                    console.log('    image -> database: OK', imageId); 
+                    i.id = imageId;//set ObjectId here
+                
+                    console.log('   added image ref to flashcard')
+                    //add image ObjectId to flashcard
+                    flashcardsData.forEach(function(f){
+                        if(f.name == i.name){
+                            f.image = i.id;
+                            n++;
+                        }
+                    })
+                    
+                    //insert example flash cards
+                    if(n >= 5){
+                    console.log('flashcard set ...')
+                    DB.fixtures(flashcards, flashcardsData, function(err){
+                        console.error('    image insert fail ', err);
+                    },function(err, files){
+                        if(err) console.error('load test database fail')
+                        console.log('flashcard set', files)
+                    })
                     }
                 })
-            },function(){
-                //insert example flash cards
-                DB.fixtures(flashcards, flashcardsData, function(err){
-                    console.error('    image insert fail ', err);
-                },function(err, files){
-                    if(err) console.error('load test database fail')
-                    console.log('flashcard set', files)
-                })
-            })
-        })
+            },function(){})
         }, function(err){console.error('    image deletion fail ', err);})
     })
 })
