@@ -1,0 +1,70 @@
+var Db = require('mongodb').Db,
+    MongoClient = require('mongodb').MongoClient,
+    Server = require('mongodb').Server,
+    ReplSetServers = require('mongodb').ReplSetServers,
+    ObjectID = require('mongodb').ObjectID,
+    Binary = require('mongodb').Binary,
+    GridStore = require('mongodb').GridStore,
+    Grid = require('mongodb').Grid,
+    Code = require('mongodb').Code,
+    BSON = require('mongodb').pure().BSON,
+    assert = require('assert');
+
+var DB = require('../../db')
+    
+var fs = require('fs');
+var Grid = require('gridfs');
+
+module.exports.openFile(stream, done){
+    if(!DB.state.db)return done()
+    var fileId = new ObjectID();
+  var data = fs.readFileSync('./test/tests/functional/gridstore/iya_logo_final_bw.jpg');
+  /*
+  // Create a new file
+  var gs = new GridStore(db, fileId, "w");
+  // Open the file
+  gs.open(function(err, gs) {
+    // Write the file to GridFS
+    gs.write(data, function(err, gs) {
+      // Flush to the GridFS
+      gs.close(function(err, gs) {
+*/
+        // Define the file we wish to read
+        var gs2 = new GridStore(db, fileId, "r");
+        // Open the file
+        gs2.open(function(err, gs) {
+          // Set the pointer of the read head to the start of the gridstored file
+          gs2.seek(0, function() {
+            // Read the entire file
+            gs2.read(function(err, data2) {
+              // Compare the file content against the orgiinal
+              //assert.equal(data.toString('base64'), data2.toString('base64'));
+
+              db.close();
+            });
+          });
+        });
+}
+
+module.exports.createFile(stream, done){
+    if(!DB.state.db)return done()
+    var gridStore = new GridStore(db, new ObjectID(), "test_gs_getc_file", "w");
+    gridStore.open(function(err, gridStore) {
+        // Write some content to the file
+        gridStore.write(new Buffer("hello, world!", "utf8"), function(err, gridStore) {
+            // Flush the file to GridFS
+            gridStore.close(function(err, fileData) {
+                assert.equal(null, err);
+                return done();
+            });
+        });
+    });
+}
+//unlink
+module.exports.deleteFile(done){
+
+}
+//list
+module.exports.DeleteAllFiles(done){
+
+}

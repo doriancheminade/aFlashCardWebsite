@@ -6,8 +6,6 @@ var state = {
     uri: null,
 }
 
-var data = require('./test/database/flashcardDB')
-
 module.exports.connect = function(uri, done){
     if(state.db) return done()
     var uri = uri
@@ -32,14 +30,13 @@ module.exports.drop = function(done){
             }, done)
     })
 }
-module.exports.fixtures = function(name, done){
-    var db = state.db
-    if(!db)return done(new Error('Missing database'))
-    db.createCollection(name, function(err, collection){
-        if(err){ return console.dir(err);}
-        collection.insert(data, function(err, result) {
-            if(err){return console.dir(err);}
+module.exports.fixtures = function(name, data, err, done){
+    if(!state.db)return err('no database')
+    state.db.createCollection(name, function(err1, collection){
+        if(err1){ return err(err1)}
+        collection.insert(data, function(err2, res) {
+            if(err2){return err(err2)}
+            return done(res);
         })
     })
 }
-module.mongo = mongo;
