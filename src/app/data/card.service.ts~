@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http } from '@angular/http';
+import { Headers, Http, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/map';
 
 import { Card } from './card.component';
 import { CARDS } from './mock-data-cards';
@@ -10,28 +11,41 @@ import { CARDS } from './mock-data-cards';
 
 @Injectable()
 export class CardService {
-    private getAllUrl = "api/getAllFlashCards";
-    private getByIdUrl = "api/getByIdFlashCards";
 
     constructor(private http: Http) { }
   
     getCards(): Promise<Card[]>{
-        return this.http.get('api/getAllFlashCards')
+        return this.http.get('api/cards/getAll')
                         .toPromise()
                         .then(responce => responce.json() as Card[])
                         .catch(this.handleError);
     }
-    
-    //getCard(id: string): Promise<Card> {
     getCard(id: string): Promise<any> {
-    const url = '${this.getByIdUrl}/${id}';
-        return this.http.get('api/getByIdFlashCards/'+id)
+        return this.http.get('api/cards/getById/'+id)
                         .toPromise()
-                        //.then(responce => responce.json().data as Card)
                         .then( (responce) => responce.json())
                         .catch(this.handleError);
     }
     
+    getImage(id: string): Promise<any> {
+        return this.http.get('api/imgs/getById/'+id)
+                        .toPromise()
+                        .catch(this.handleError);
+    }
+    uploadCard(card: any): Observable<any> {
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        
+        return this.http.post('api/cards/upload/', {"card": card }, options)
+                        .map(res => res.json());
+    }
+    uploadImage(image: any): Observable<string> {
+        let headers = new Headers({ 'Content-Type': 'image' });
+        let options = new RequestOptions({ headers: headers });
+        
+        return this.http.post('api/imgs/upload', image, options)
+                        .map(res => res.json());
+    }
     private handleError(error: any): Promise<any> {
         console.error('API ERROR: ', error);
         return Promise.reject(error.message || error);

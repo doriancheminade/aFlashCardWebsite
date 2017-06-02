@@ -5,11 +5,6 @@ label {
   color: #607D8B;
   font-weight: bold;
 }
-input {
-  height: 2em;
-  font-size: 1em;
-  padding-left: .4em;
-}
 button {
   margin-top: 20px;
   font-family: Arial;
@@ -26,4 +21,10 @@ button:disabled {
   background-color: #eee;
   color: #ccc; 
   cursor: auto;
+}
+.cardOriginalWord {
+  background-color: #e5e5e5;
+}
+.cardTranslation {
+  background-color: #d8d8d8;  
 }

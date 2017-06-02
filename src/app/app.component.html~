@@ -1,7 +1,9 @@
 <h1>
   {{title}}
-</h1>    
-<a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-<a routerLink="/cards-example" routerLinkActive="active">card example</a>
-
+</h1>  
+<nav>  
+    <button><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></button>
+    <button><a routerLink="/cards-example" routerLinkActive="active">card example</a></button>
+    <button><a routerLink="/create-card" routerLinkActive="active">add a new card</a></button>
+</nav>
 <router-outlet></router-outlet>

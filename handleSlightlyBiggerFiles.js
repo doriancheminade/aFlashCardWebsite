@@ -24,20 +24,20 @@ module.exports.readFile = function(fileId, done, err){
     })
 }
 
-module.exports.createFile = function(data, done, err){
+module.exports.createFile = function(data, name, done, err){
     if(!DB.getDB())return err('no database')
 
     var fileId = new ObjectID()
-    var gridStore = new GridStore(DB.getDB(), fileId, data, "w")
+    var gridStore = new GridStore(DB.getDB(), fileId, name, "w")
     gridStore.open(function(err1, gridStore) {
         if(err1) return err(err1)        
-        var s = fs.createReadStream(data)        
-        s.on('data', function(chunk) {        
+                
+        data.on('data', function(chunk) {        
             gridStore.write(chunk, function(err2, gridStore) {
                 if(err2) return err(err2)
             })
         })
-        s.on('end', function() {
+        data.on('end', function() {
             // Flush the file to GridFS
             gridStore.close(function(err3, fileData) {
                 if(err3) return err(err3)

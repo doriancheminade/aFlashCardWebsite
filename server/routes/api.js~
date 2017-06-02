@@ -27,8 +27,8 @@ DB.connect(FLASHCARD_URI, function(err){
             //insert images
             var n = 0;
             images.forEach(function(i){
-                
-                gridfs.createFile(p + i.f, function(imageId){
+                var s = fs.createReadStream(p + i.f)
+                gridfs.createFile(s, i.f, function(imageId){
                     console.log('    image -> database: OK', imageId); 
                     i.id = imageId;//set ObjectId here
                 
@@ -38,7 +38,6 @@ DB.connect(FLASHCARD_URI, function(err){
                         if(f.name == i.name){
                             f.image = i.id;
                             n++;
-                            //console.log('image id set', i.id)
                         }
                     })
                     
@@ -58,28 +57,45 @@ DB.connect(FLASHCARD_URI, function(err){
     })
 })
 //actual API
-router.get('/getAllFlashCards', (req, res) => {
+router.get('/cards/getAll', (req, res) => {
     DB.getDB().collection(flashcards).find().toArray(function (err, result) {
         if (err) {
             console.error('    Find failed', err);
         } else {
-            console.log('   Find successful', result);
             res.send(result);
         }
     })
 });
-router.get('/getByIdFlashCards/:id', (req, res) => {
+router.get('/cards/getById/:id', (req, res) => {
     DB.getDB().collection(flashcards).find({"_id": mongo.ObjectId(req.params.id)}).toArray(function (err, result) {
         if (err) {
             console.error('Find failed', err);
         } else {
-            console.log('Find successful', req.params);
-            console.log('               ', result);
             res.send(result);
         }
     })
 });
+router.post('/cards/upload/', (req, res) => {
+    console.log('REQ: ',req.body);
+    //console.log('RES: ',res);
+    DB.getDB().collection(flashcards).insertOne(req.body.card, function(err, res1){
+        if(err) {
+            console.error('upload flash card fail: ',err);
+            res.send({"err": err});
+        }
+        res.send(res1);
+    })
+});
 
+router.post('/imgs/upload/', (req, res) => {
+    gridfs.createFile(req, function(fileId){
+        console.log('upload img ',fileId);
+        res.send(fileId);
+    }, function(err){
+        console.error('upload image fail ', err);
+        res.send(err);
+    })
+});
 router.get('/imgs/getById/:id', (req, res) => {
     gridfs.readFile(req.params.id+'', function(s){
         s.on("data", function(chunk) {

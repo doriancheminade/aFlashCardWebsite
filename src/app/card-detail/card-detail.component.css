@@ -5,46 +5,9 @@ label {
   color: #607D8B;
   font-weight: bold;
 }
-input {
-  height: 2em;
-  font-size: 1em;
-  padding-left: .4em;
-}
-button {
-  margin-top: 20px;
-  font-family: Arial;
-  background-color: #eee;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer; cursor: hand;
-}
-button:hover {
-  background-color: #cfd8dc;
-}
-button:disabled {
-  background-color: #eee;
-  color: #ccc; 
-  cursor: auto;
-}
-.col-1-2 {
-  width: 50%;
-}
-.col-1-4 {
-  width: 25%;
-}
-div {
-  padding: 20px;
-}
 .cardOriginalWord {
-  background-clip: padding-box;
   background-color: #e5e5e5;
 }
 .cardTranslation {
-  background-clip: padding-box;
   background-color: #d8d8d8;  
-}
-.cardExample {
-  background-clip: padding-box;
-  background-color: #f2f2f2;  
 }

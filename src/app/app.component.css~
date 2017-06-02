@@ -1,0 +1,7 @@
+h1 {
+  font-size: 2em;
+  color: #999;
+}
+nav a.active {
+  color: #039be5;
+}

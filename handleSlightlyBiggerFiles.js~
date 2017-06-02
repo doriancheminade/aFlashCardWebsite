@@ -15,25 +15,13 @@ var Grid = require('gridfs')
 
 module.exports.readFile = function(fileId, done, err){
     if(!DB.getDB())return err('no database')
-    console.log('1', fileId)//////
     
     var gs = new GridStore(DB.getDB(), new ObjectID(fileId), "r")
-    console.log('1,5', fileId)//////
-    //DB.getDB().fs.findOne({'_id' : fileId},function(){
-    
-    //GridStore.exist("toto", function (err1, found) {
-    //    if (err1) return err({error: err1})
-        console.log('2')//////
-        
-        gs.open(function(err1, gs) {
-            console.log('3')//////
-            if(err1) return err(err1)    
-            console.log('4')//////    
+    gs.open(function(err1, gs) {
+        if(err1) return err(err1) 
             var s = gs.stream(true)        
             return done(s)
-        })
-    //})
-    //})
+    })
 }
 
 module.exports.createFile = function(data, done, err){
@@ -43,13 +31,13 @@ module.exports.createFile = function(data, done, err){
     var gridStore = new GridStore(DB.getDB(), fileId, data, "w")
     gridStore.open(function(err1, gridStore) {
         if(err1) return err(err1)        
-        var s = fs.createReadStream(data)        
-        s.on('data', function(chunk) {        
+                
+        data.on('data', function(chunk) {        
             gridStore.write(chunk, function(err2, gridStore) {
                 if(err2) return err(err2)
             })
         })
-        s.on('end', function() {
+        data.on('end', function() {
             // Flush the file to GridFS
             gridStore.close(function(err3, fileData) {
                 if(err3) return err(err3)
