@@ -1,6 +1,6 @@
 
 <button *ngFor="let card of cards; let i = index" (click)="openCard(card, i)" class="btn btn-default col-md-3"
-    [disabled]="canAnswer[i]">
+    >
     <span class="label label-default" *ngIf="answered[i]">answered</span>
     {{card.word}}
 </button>

@@ -57,46 +57,53 @@ DB.connect(FLASHCARD_URI, function(err){
     })
 })
 //actual API
-router.get('/cards/getAll', (req, res) => {
+router.get('/cards/getAll', (req, res, next) => {
     DB.getDB().collection(flashcards).find().toArray(function (err, result) {
         if (err) {
-            console.error('    Find failed', err);
+            return next(err);
         } else {
             res.send(result);
         }
     })
 });
-router.get('/cards/getById/:id', (req, res) => {
+router.get('/cards/getById/:id', (req, res, next) => {
     DB.getDB().collection(flashcards).find({"_id": mongo.ObjectId(req.params.id)}).toArray(function (err, result) {
         if (err) {
-            console.error('Find failed', err);
+            return next(err);
         } else {
             res.send(result);
         }
     })
 });
-router.post('/cards/upload/', (req, res) => {
+router.get('/cards/getRandom/:number', (req, res, next) => {
+    DB.getDB().collection(flashcards).aggregate([{$sample: {size: parseInt(req.params.number)}}]).toArray(function(err, result){
+        if (err) {
+            return next(err);
+        } else {
+            res.send(result);
+        }
+    })
+});
+router.post('/cards/upload/', (req, res, next) => {
     console.log('REQ: ',req.body);
-    //console.log('RES: ',res);
     DB.getDB().collection(flashcards).insertOne(JSON.parse(req.body.card), function(err, res1){
         if(err) {
-            console.error('upload flash card fail: ',err);
-            res.send({"err": err});
+            return next(err);
         }
         res.send(res1);
     })
 });
 
-router.post('/imgs/upload/', (req, res) => {
+
+router.post('/imgs/upload/', (req, res, next) => {
     gridfs.createFile(req, function(fileId){
         console.log('upload img ',fileId);
         res.send(fileId);
     }, function(err){
-        console.error('upload image fail ', err);
-        res.send(err);
+        return next(err);
     })
 });
-router.get('/imgs/getById/:id', (req, res) => {
+router.get('/imgs/getById/:id', (req, res, next) => {
     gridfs.readFile(req.params.id+'', function(s){
         s.on("data", function(chunk) {
             res.write(chunk)
@@ -105,8 +112,7 @@ router.get('/imgs/getById/:id', (req, res) => {
             res.end()
         })
     },function(err){
-        console.error('get image fail ', err)
-        res.send({'err': 'file not found'})
+        return next(err);
     })
 });
 

@@ -13,8 +13,8 @@ export class TestOrCramSessionComponent implements OnInit {
   cards: any[];
   selectedCard: any;
   isTest: boolean;
-  answered: boolean[] = [];
-  canAnswer: boolean[] = [];
+  answered: boolean[];
+  canAnswer: boolean[];
   //answers
   easy: number;
   ok: number;

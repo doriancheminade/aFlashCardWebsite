@@ -3,5 +3,4 @@
 }
 .jumbotron {
        z-index: 999;
-       background-color: #f7f7f7;
 }

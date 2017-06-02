@@ -20,6 +20,12 @@ export class CardService {
                         .then(responce => responce.json() as Card[])
                         .catch(this.handleError);
     }
+    getRandomCards(n: string): Promise<Card[]>{
+        return this.http.get('api/cards/getRandom/'+n)
+                        .toPromise()
+                        .then(responce => responce.json() as Card[])
+                        .catch(this.handleError);
+    }
     getCard(id: string): Promise<any> {
         return this.http.get('api/cards/getById/'+id)
                         .toPromise()
@@ -36,7 +42,7 @@ export class CardService {
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
         
-        return this.http.post('api/cards/upload/', {"card": card }, options)
+        return this.http.post('api/cards/upload/', {"card": JSON.stringify(card) }, options)
                         .map(res => res.json());
     }
     uploadImage(image: any): Observable<string> {

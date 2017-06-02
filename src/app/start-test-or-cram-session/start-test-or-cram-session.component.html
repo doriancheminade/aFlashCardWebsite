@@ -1,0 +1,26 @@
+<div class="form-group">
+    <div>
+        <label>Number of cards</label>
+        <input [(ngModel)]="n">
+    </div>
+    <div >
+        <label>test mode</label>
+        <input [(ngModel)]="isTest" type="checkbox" aria-label="...">
+    </div>
+    <div *ngIf="isTest">
+        <label>Time</label>
+        <input [(ngModel)]="time" aria-label="...">
+    </div>
+    <div >
+        <label>random</label>
+        <input [(ngModel)]="random" type="checkbox" aria-label="...">        
+    </div>
+    <!--<div>
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" 
+                aria-expanded="false">
+            Choose in deck<span class="caret"></span>
+        </button>
+    </div>-->
+    
+    <button (click)="startSession()" type="submit" class="btn btn-primary col-md-12">Start</button>
+</div>

@@ -23,7 +23,6 @@ export class CreateCardComponent implements OnInit {
     this.translation = {
         translation: "",
         info: "",
-        english: "engulishu!",
         example: {
             en: "e",
             ru: "r"

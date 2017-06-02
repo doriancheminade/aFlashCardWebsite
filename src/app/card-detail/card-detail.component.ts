@@ -28,7 +28,6 @@ export class CardDetailComponent implements OnInit {
             .subscribe(card => {
                        this.card = card;
                        this.imageRef = "api/imgs/getById/" + this.card[0].image.toString()});
-        console.log(this.card)
     }
     
     goBack(): void {

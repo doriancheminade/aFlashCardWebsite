@@ -25,8 +25,6 @@ export class CardDetailComponent implements OnInit {
     ngOnInit(): void {
         this.route.params
             .switchMap((params: Params) => this.cardService.getCard(params['id']))
-            //.subscribe(card => this.card = card)
-            //.subscribe( card => this.imageRef = 'api/imgs/getById/' + this.card.image)
             .subscribe(card => {
                        this.card = card;
                        this.imageRef = "api/imgs/getById/" + this.card[0].image.toString()});

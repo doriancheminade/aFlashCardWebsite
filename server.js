@@ -9,9 +9,16 @@ const api = require('./server/routes/api');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+function errorHandler(err, req, res, next) {
+  res.status(500).send({ error: err });
+  res.render('error', { error: err });
+}
+app.use(errorHandler);
+
 app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use('/api', api);
+
 
 const port = process.env.PORT || '3000';
 app.set('port', port);

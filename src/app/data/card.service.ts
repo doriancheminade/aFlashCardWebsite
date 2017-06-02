@@ -20,6 +20,12 @@ export class CardService {
                         .then(responce => responce.json() as Card[])
                         .catch(this.handleError);
     }
+    getRandomCards(n: string): Promise<Card[]>{
+        return this.http.get('api/cards/getRandom/'+n)
+                        .toPromise()
+                        .then(responce => responce.json())
+                        .catch(this.handleError);
+    }
     getCard(id: string): Promise<any> {
         return this.http.get('api/cards/getById/'+id)
                         .toPromise()
