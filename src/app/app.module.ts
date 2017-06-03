@@ -24,7 +24,7 @@ import { StartTestOrCramSessionComponent } from './start-test-or-cram-session/st
     DashboardComponent,
     CardDetailComponent,
     CreateCardComponent,
-    TestOrCramSessionComponent, 
+    TestOrCramSessionComponent,
     StartTestOrCramSessionComponent,
   ],
   imports: [

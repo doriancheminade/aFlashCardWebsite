@@ -46,8 +46,8 @@ export class CardService {
                         .map(res => res.json());
     }
     uploadImage(image: any): Observable<string> {
-        let headers = new Headers({ 'Content-Type': 'image' });
-        let options = new RequestOptions({ headers: headers });
+        const headers = new Headers({ 'Content-Type': 'image' });
+        const options = new RequestOptions({ headers: headers });
         
         return this.http.post('api/imgs/upload', image, options)
                         .map(res => res.json());

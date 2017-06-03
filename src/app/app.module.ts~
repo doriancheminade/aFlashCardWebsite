@@ -28,6 +28,7 @@ import { StartTestOrCramSessionComponent } from './start-test-or-cram-session/st
     StartTestOrCramSessionComponent,
   ],
   imports: [
+    ProgressbarModule.forRoot(),
     BrowserModule,
     FormsModule,
     HttpModule,

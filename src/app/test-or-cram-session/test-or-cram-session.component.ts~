@@ -13,8 +13,8 @@ export class TestOrCramSessionComponent implements OnInit {
   cards: any[];
   selectedCard: any;
   isTest: boolean;
-  answered: boolean[];
-  canAnswer: boolean[];
+  answered: boolean[] = [];
+  canAnswer: boolean[] = [];
   //answers
   easy: number;
   ok: number;
@@ -46,12 +46,12 @@ export class TestOrCramSessionComponent implements OnInit {
     this.hard = 0;
     this.max = 0;
     this.nbAnswers = 0;
-    if(!this.isTest){
+    if (!this.isTest){
         this.max = this.cards.length
     }
     this.state = 0;
     
-    for(let i=0; i< this.cards.length; i++) { 
+    for (let i=0; i< this.cards.length; i++) { 
       this.answered.push(false) 
       this.canAnswer.push(true) 
     } 
@@ -60,7 +60,7 @@ export class TestOrCramSessionComponent implements OnInit {
     this.selectedCard = card;
     this.state = 1;
     this.answered[i] = true;
-    if(this.isTest){
+    if (this.isTest){
         this.canAnswer[i] = false;
     }
   }
@@ -69,16 +69,16 @@ export class TestOrCramSessionComponent implements OnInit {
   }
   answerCard(card, a){
   this.nbAnswers++
-    if(a == 'easy'){
+    if (a == 'easy'){
         this.easy++;
     }
-    if(a == 'ok'){
+    if (a == 'ok'){
         this.ok++;
     }
-    if(a == 'hard'){
+    if (a == 'hard'){
         this.hard++;
     }
-    if(!this.isTest){
+    if (!this.isTest){
         this.max++;
     }
     this.state = 0;
