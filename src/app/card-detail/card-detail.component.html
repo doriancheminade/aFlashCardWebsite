@@ -3,13 +3,13 @@
 
     <div class="col-md-8">
         <div class="cardOriginalWord">
-        <font size="2"> 
+        <font size="2">
             ({{card[0].type}} ):
         </font>
-        {{card[0].word}}
+        <div id="theCardWord">{{card[0].word}}</div>
         <br/>
         </div>
-        
+
         <div *ngFor="let t of card[0].translation">
             <div class="cardTranslation">
             <label>Translation: </label>
@@ -26,16 +26,16 @@
                     {{t.example.en}}
                 </div>
                 <div class="col-md-6">
-                    <label>ru: </label> 
-                    {{t.example.ru}} 
-                </div> 
+                    <label>ru: </label>
+                    {{t.example.ru}}
+                </div>
             </div>
         </div>
     </div>
-    
+
     <div class="col-md-4" *ngIf="imageRef">
         <img [src]="imageRef"/>
     </div>
-    
+
 </div>
-<button class="bot" (click)="goBack()">Back</button>
+<button (click)="goBack()">Back</button>

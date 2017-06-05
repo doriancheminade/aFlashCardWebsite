@@ -1,18 +1,19 @@
-
-<button *ngFor="let card of cards; let i = index" (click)="openCard(card, i)" class="btn btn-default col-md-3"
-    >
+<script src="web-animations.min.js"></script>
+<button *ngFor="let card of cards; let i = index" (click)="openCard(i)" class="btn btn-default col-md-3"
+    [disabled]="canAnswer[i]">
     <span class="label label-default" *ngIf="answered[i]">answered</span>
     {{card.word}}
 </button>
 
 
-<div id="cardView" *ngIf="state != 0" class=" jumbotron">
-    <h3>{{selectedCard.word}}</h3>
+<div id="cardView" *ngIf="stateCard != 'void'" class=" jumbotron"
+  [@cardState]="stateCard" >
+    <h3>{{cards[selectedCard].word}}</h3>
 
-    <button *ngIf="state == 1" class="btn btn-default" (click)="seeCard()">see card</button>
-    
-    <div *ngIf="state == 2" >
-        <div *ngFor="let t of selectedCard.translation">
+    <button *ngIf="stateCard == 'opened'" class="btn btn-default" (click)="seeCard()">see card</button>
+
+    <div *ngIf="stateCard == 'answering'" >
+        <div *ngFor="let t of cards[selectedCard].translation">
             <label><span class="label label-info">Translation:</span> {{t.translation}}</label>
             <div>
                 <label><span class="label label-info">en:</span>{{t.example.en}}</label>
@@ -20,11 +21,11 @@
             </div>
         </div>
     </div>
-    <div class="btn-group" role="group" *ngIf="state == 2">
-        <button class="btn " (click)="answerCard(selectedCard,'easy')">easy</button>
-        <button class="btn " (click)="answerCard(selectedCard,'ok')">ok</button>
-        <button class="btn " (click)="answerCard(selectedCard,'hard')">hard</button>
-    </div>    
+    <div class="btn-group" role="group" *ngIf="stateCard == 'answering'">
+        <button class="btn " (click)="answerCard('easy')">easy</button>
+        <button class="btn " (click)="answerCard('ok')">ok</button>
+        <button class="btn " (click)="answerCard('hard')">hard</button>
+    </div>
 </div>
 
 <div class="col-md-12">

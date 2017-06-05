@@ -1,20 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params  } from '@angular/router';
-
+import { trigger, state, style, animate, transition } from '@angular/animations';
 import { CardService } from '../data/card.service';
 
 @Component({
   selector: 'app-test-or-cram-session',
   templateUrl: './test-or-cram-session.component.html',
-  styleUrls: ['./test-or-cram-session.component.css']
+  styleUrls: ['./test-or-cram-session.component.css'],
+  animations: [
+    trigger('cardState', [
+      state('void', style({transform: 'rotate( 900deg )', opacity: 1})),
+      state('opened', style({transform: 'rotate( 0deg )', opacity: 1})),
+      state('answering', style({transform: 'rotate( 900deg )', opacity: 1})),
+      transition('void <=> *', animate(3000)),
+      transition('answering => opened', animate(3000))
+    ])
+  ]
 })
 export class TestOrCramSessionComponent implements OnInit {
 
   cards = Array<any>();
-  selectedCard: any;
+  selectedCard: number;
   isTest: boolean;
   answered: boolean[] = [];
   canAnswer: boolean[] = [];
+  animationState: string;
   //answers
   easy: number;
   ok: number;
@@ -23,11 +33,11 @@ export class TestOrCramSessionComponent implements OnInit {
   nbAnswers: number;
   max: number
 
-  state: number;
+  stateCard: string;
 
   constructor(
         private cardService: CardService,
-        private router: Router,//---------------------------
+        private router: Router,
         private route: ActivatedRoute)
   { }
 
@@ -39,7 +49,7 @@ export class TestOrCramSessionComponent implements OnInit {
         })
         .subscribe(cards => {
             this.cards = cards
-            this.selectedCard = cards[0]
+            this.selectedCard = 0
         });
     this.easy = 0;
     this.ok = 0;
@@ -49,26 +59,22 @@ export class TestOrCramSessionComponent implements OnInit {
     if (!this.isTest){
         this.max = this.cards.length
     }
-    this.state = 0;
+    this.stateCard = 'void';
 
     for (let i=0; i< this.cards.length; i++) {
       this.answered.push(false)
       this.canAnswer.push(true)
     }
   }
-  openCard(card, i){
-    this.selectedCard = card;
-    this.state = 1;
-    this.answered[i] = true;
-    if (this.isTest){
-        this.canAnswer[i] = false;
-    }
+  openCard(i){
+    this.selectedCard = i;
+    this.stateCard = 'opened';
   }
   seeCard(){
-    this.state = 2;
+    this.stateCard = 'answering';
   }
-  answerCard(card, a){
-  this.nbAnswers++
+  answerCard(a){
+    this.nbAnswers++
     if (a === 'easy'){
         this.easy++;
     }
@@ -81,6 +87,10 @@ export class TestOrCramSessionComponent implements OnInit {
     if (!this.isTest){
         this.max++;
     }
-    this.state = 0;
+    this.stateCard = 'void';
+    if (this.isTest){
+        this.canAnswer[this.selectedCard] = false;
+    }
+    this.answered[this.selectedCard] = true;
   }
 }
